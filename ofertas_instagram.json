@@ -1,0 +1,222 @@
+[
+  {
+    "inmobiliaria": {
+      "nombre_comercial": "Fordham Brokers Inmobiliaria",
+      "usuario_instagram": "@fordhambrokers",
+      "url_web_oficial": null,
+      "telefono_contacto": "wa.link/hsoa09"
+    },
+    "parametros_sistema": {
+      "origen_extraccion": "Instagram_IA",
+      "accion_requerida": "Inyectar directo a Supabase"
+    },
+    "datos_oferta_extraida": {
+      "tipo_inmueble": "Departamento",
+      "operacion": "Venta",
+      "precio_numerico": 95000,
+      "moneda": "USD",
+      "ubicacion_zona": "Barrio Norte",
+      "direccion_o_referencia": "25 de Mayo 600",
+      "superficie_terreno_m2": 78,
+      "superficie_cubierta_m2": 72
+    }
+  },
+  {
+    "inmobiliaria": {
+      "nombre_comercial": "Bunader Inmobiliaria",
+      "usuario_instagram": "@inmobiliariabunader",
+      "url_web_oficial": null,
+      "telefono_contacto": "linktr.ee/bunadernegociosinmobiliarios"
+    },
+    "parametros_sistema": {
+      "origen_extraccion": "Instagram_IA",
+      "accion_requerida": "Inyectar directo a Supabase"
+    },
+    "datos_oferta_extraida": {
+      "tipo_inmueble": "Casa",
+      "operacion": "Venta",
+      "precio_numerico": 185000,
+      "moneda": "USD",
+      "ubicacion_zona": "Yerba Buena",
+      "direccion_o_referencia": "Av. Aconquija 1800",
+      "superficie_terreno_m2": 480,
+      "superficie_cubierta_m2": 240
+    }
+  },
+  {
+    "inmobiliaria": {
+      "nombre_comercial": "Tucumán Propiedades",
+      "usuario_instagram": "@inmobiliariatucumanpropiedades",
+      "url_web_oficial": null,
+      "telefono_contacto": "3814244677"
+    },
+    "parametros_sistema": {
+      "origen_extraccion": "Instagram_IA",
+      "accion_requerida": "Inyectar directo a Supabase"
+    },
+    "datos_oferta_extraida": {
+      "tipo_inmueble": "Departamento",
+      "operacion": "Venta",
+      "precio_numerico": 68000,
+      "moneda": "USD",
+      "ubicacion_zona": "Centro",
+      "direccion_o_referencia": "San Martín 900",
+      "superficie_terreno_m2": 58,
+      "superficie_cubierta_m2": 54
+    }
+  },
+  {
+    "inmobiliaria": {
+      "nombre_comercial": "Inmobiliaria Wainer",
+      "usuario_instagram": "@inmobiliaria.wainer",
+      "url_web_oficial": null,
+      "telefono_contacto": "wa.me/5493814121334"
+    },
+    "parametros_sistema": {
+      "origen_extraccion": "Instagram_IA",
+      "accion_requerida": "Inyectar directo a Supabase"
+    },
+    "datos_oferta_extraida": {
+      "tipo_inmueble": "Casa",
+      "operacion": "Venta",
+      "precio_numerico": 210000,
+      "moneda": "USD",
+      "ubicacion_zona": "Yerba Buena",
+      "direccion_o_referencia": "Lobo de la Vega 400",
+      "superficie_terreno_m2": 620,
+      "superficie_cubierta_m2": 290
+    }
+  },
+  {
+    "inmobiliaria": {
+      "nombre_comercial": "Inmobiliaria Sinergia",
+      "usuario_instagram": "@sinergianegociosinmobiliarios",
+      "url_web_oficial": null,
+      "telefono_contacto": "wa.link/0tfy7i"
+    },
+    "parametros_sistema": {
+      "origen_extraccion": "Instagram_IA",
+      "accion_requerida": "Inyectar directo a Supabase"
+    },
+    "datos_oferta_extraida": {
+      "tipo_inmueble": "Lote",
+      "operacion": "Venta",
+      "precio_numerico": 48000,
+      "moneda": "USD",
+      "ubicacion_zona": "Tafí Viejo",
+      "direccion_o_referencia": "Ruta 314 Km 4",
+      "superficie_terreno_m2": 450,
+      "superficie_cubierta_m2": null
+    }
+  },
+  {
+    "inmobiliaria": {
+      "nombre_comercial": "Negocios Inmobiliarios (Pombo & Petracca)",
+      "usuario_instagram": "@pombopetracca.inmobiliaria",
+      "url_web_oficial": null,
+      "telefono_contacto": "wa.link/7vpmbf"
+    },
+    "parametros_sistema": {
+      "origen_extraccion": "Instagram_IA",
+      "accion_requerida": "Inyectar directo a Supabase"
+    },
+    "datos_oferta_extraida": {
+      "tipo_inmueble": "Casa",
+      "operacion": "Venta",
+      "precio_numerico": 165000,
+      "moneda": "USD",
+      "ubicacion_zona": "Yerba Buena",
+      "direccion_o_referencia": "Salas y Valdez 1100",
+      "superficie_terreno_m2": 420,
+      "superficie_cubierta_m2": 210
+    }
+  },
+  {
+    "inmobiliaria": {
+      "nombre_comercial": "Master Inmobiliaria",
+      "usuario_instagram": "@masterinmobiliaria",
+      "url_web_oficial": null,
+      "telefono_contacto": "wa.me/5493815038111"
+    },
+    "parametros_sistema": {
+      "origen_extraccion": "Instagram_IA",
+      "accion_requerida": "Inyectar directo a Supabase"
+    },
+    "datos_oferta_extraida": {
+      "tipo_inmueble": "Departamento",
+      "operacion": "Venta",
+      "precio_numerico": 74000,
+      "moneda": "USD",
+      "ubicacion_zona": "Barrio Sur",
+      "direccion_o_referencia": "Gral. Paz 500",
+      "superficie_terreno_m2": 64,
+      "superficie_cubierta_m2": 58
+    }
+  },
+  {
+    "inmobiliaria": {
+      "nombre_comercial": "Ostengo Inmobiliaria",
+      "usuario_instagram": "@ostengo_inmobiliaria",
+      "url_web_oficial": null,
+      "telefono_contacto": "wa.me/3815061616"
+    },
+    "parametros_sistema": {
+      "origen_extraccion": "Instagram_IA",
+      "accion_requerida": "Inyectar directo a Supabase"
+    },
+    "datos_oferta_extraida": {
+      "tipo_inmueble": "Departamento",
+      "operacion": "Venta",
+      "precio_numerico": 112000,
+      "moneda": "USD",
+      "ubicacion_zona": "Barrio Norte",
+      "direccion_o_referencia": "Muñecas 700",
+      "superficie_terreno_m2": 88,
+      "superficie_cubierta_m2": 80
+    }
+  },
+  {
+    "inmobiliaria": {
+      "nombre_comercial": "Garcia Pinto Propiedades",
+      "usuario_instagram": "@garciapintopropiedades",
+      "url_web_oficial": null,
+      "telefono_contacto": "wa.link/yt1fyd"
+    },
+    "parametros_sistema": {
+      "origen_extraccion": "Instagram_IA",
+      "accion_requerida": "Inyectar directo a Supabase"
+    },
+    "datos_oferta_extraida": {
+      "tipo_inmueble": "Casa",
+      "operacion": "Venta",
+      "precio_numerico": 195000,
+      "moneda": "USD",
+      "ubicacion_zona": "Yerba Buena",
+      "direccion_o_referencia": "Av. Perón 1600",
+      "superficie_terreno_m2": 550,
+      "superficie_cubierta_m2": 260
+    }
+  },
+  {
+    "inmobiliaria": {
+      "nombre_comercial": "Los Ceibos Inmobiliaria",
+      "usuario_instagram": "@losceibosinmobiliariatuc",
+      "url_web_oficial": null,
+      "telefono_contacto": "wa.link/y2620i"
+    },
+    "parametros_sistema": {
+      "origen_extraccion": "Instagram_IA",
+      "accion_requerida": "Inyectar directo a Supabase"
+    },
+    "datos_oferta_extraida": {
+      "tipo_inmueble": "Lote",
+      "operacion": "Venta",
+      "precio_numerico": 55000,
+      "moneda": "USD",
+      "ubicacion_zona": "San Pablo",
+      "direccion_o_referencia": "Ruta 301 San Pablo",
+      "superficie_terreno_m2": 600,
+      "superficie_cubierta_m2": null
+    }
+  }
+]

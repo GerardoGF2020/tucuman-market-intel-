@@ -1,0 +1,857 @@
+[
+  {
+    "inmobiliaria": {
+      "nombre_comercial": "Rendace Inmobiliaria",
+      "usuario_instagram": "@rendace.inmobiliaria",
+      "url_web_oficial": "rendaceinmobiliaria.com.ar",
+      "telefono_contacto": "3816017447"
+    },
+    "parametros_sistema": {
+      "origen_extraccion": "Web_Oficial",
+      "accion_requerida": "Añadir a scraper_web.py"
+    },
+    "datos_oferta_extraida": {
+      "tipo_inmueble": null,
+      "precio_numerico": null,
+      "moneda": null,
+      "ubicacion_zona": null,
+      "superficie_m2": null
+    }
+  },
+  {
+    "inmobiliaria": {
+      "nombre_comercial": "Germán Schilman Inmobiliaria",
+      "usuario_instagram": "@inmobiliariagermanschilman",
+      "url_web_oficial": "www.germanschilman.com",
+      "telefono_contacto": null
+    },
+    "parametros_sistema": {
+      "origen_extraccion": "Web_Oficial",
+      "accion_requerida": "Añadir a scraper_web.py"
+    },
+    "datos_oferta_extraida": {
+      "tipo_inmueble": null,
+      "precio_numerico": null,
+      "moneda": null,
+      "ubicacion_zona": null,
+      "superficie_m2": null
+    }
+  },
+  {
+    "inmobiliaria": {
+      "nombre_comercial": "Fordham Brokers Inmobiliaria",
+      "usuario_instagram": "@fordhambrokers",
+      "url_web_oficial": null,
+      "telefono_contacto": "wa.link/hsoa09"
+    },
+    "parametros_sistema": {
+      "origen_extraccion": "Instagram_IA",
+      "accion_requerida": "Inyectar directo a Supabase"
+    },
+    "datos_oferta_extraida": {
+      "tipo_inmueble": null,
+      "precio_numerico": null,
+      "moneda": null,
+      "ubicacion_zona": null,
+      "superficie_m2": null
+    }
+  },
+  {
+    "inmobiliaria": {
+      "nombre_comercial": "Bunader Inmobiliaria",
+      "usuario_instagram": "@inmobiliariabunader",
+      "url_web_oficial": null,
+      "telefono_contacto": "linktr.ee/bunadernegociosinmobiliarios"
+    },
+    "parametros_sistema": {
+      "origen_extraccion": "Instagram_IA",
+      "accion_requerida": "Inyectar directo a Supabase"
+    },
+    "datos_oferta_extraida": {
+      "tipo_inmueble": null,
+      "precio_numerico": null,
+      "moneda": null,
+      "ubicacion_zona": null,
+      "superficie_m2": null
+    }
+  },
+  {
+    "inmobiliaria": {
+      "nombre_comercial": "One Propiedades",
+      "usuario_instagram": "@one.propiedades",
+      "url_web_oficial": "www.onepropiedades.com.ar",
+      "telefono_contacto": null
+    },
+    "parametros_sistema": {
+      "origen_extraccion": "Web_Oficial",
+      "accion_requerida": "Añadir a scraper_web.py"
+    },
+    "datos_oferta_extraida": {
+      "tipo_inmueble": null,
+      "precio_numerico": null,
+      "moneda": null,
+      "ubicacion_zona": null,
+      "superficie_m2": null
+    }
+  },
+  {
+    "inmobiliaria": {
+      "nombre_comercial": "Tucumán Propiedades",
+      "usuario_instagram": "@inmobiliariatucumanpropiedades",
+      "url_web_oficial": null,
+      "telefono_contacto": "3814244677"
+    },
+    "parametros_sistema": {
+      "origen_extraccion": "Instagram_IA",
+      "accion_requerida": "Inyectar directo a Supabase"
+    },
+    "datos_oferta_extraida": {
+      "tipo_inmueble": null,
+      "precio_numerico": null,
+      "moneda": null,
+      "ubicacion_zona": null,
+      "superficie_m2": null
+    }
+  },
+  {
+    "inmobiliaria": {
+      "nombre_comercial": "Daniel Ingeniería",
+      "usuario_instagram": "@danielingenieria",
+      "url_web_oficial": null,
+      "telefono_contacto": "3814035044"
+    },
+    "parametros_sistema": {
+      "origen_extraccion": "Instagram_IA",
+      "accion_requerida": "Inyectar directo a Supabase"
+    },
+    "datos_oferta_extraida": {
+      "tipo_inmueble": null,
+      "precio_numerico": null,
+      "moneda": null,
+      "ubicacion_zona": null,
+      "superficie_m2": null
+    }
+  },
+  {
+    "inmobiliaria": {
+      "nombre_comercial": "Liprandi & Asociados Inmobiliaria",
+      "usuario_instagram": "@liprandi_asociados",
+      "url_web_oficial": "www.liprandiasociados.com.ar",
+      "telefono_contacto": null
+    },
+    "parametros_sistema": {
+      "origen_extraccion": "Web_Oficial",
+      "accion_requerida": "Añadir a scraper_web.py"
+    },
+    "datos_oferta_extraida": {
+      "tipo_inmueble": null,
+      "precio_numerico": null,
+      "moneda": null,
+      "ubicacion_zona": null,
+      "superficie_m2": null
+    }
+  },
+  {
+    "inmobiliaria": {
+      "nombre_comercial": "Cazela Brokers | Inmobiliaria",
+      "usuario_instagram": "@cazelabrokers",
+      "url_web_oficial": "www.cazelabrokers.com.ar",
+      "telefono_contacto": null
+    },
+    "parametros_sistema": {
+      "origen_extraccion": "Web_Oficial",
+      "accion_requerida": "Añadir a scraper_web.py"
+    },
+    "datos_oferta_extraida": {
+      "tipo_inmueble": null,
+      "precio_numerico": null,
+      "moneda": null,
+      "ubicacion_zona": null,
+      "superficie_m2": null
+    }
+  },
+  {
+    "inmobiliaria": {
+      "nombre_comercial": "Inmobiliria BMZ Propiedades",
+      "usuario_instagram": "@bmzpropiedades",
+      "url_web_oficial": "inmobiliaria-bmzpropiedades.vercel.app",
+      "telefono_contacto": null
+    },
+    "parametros_sistema": {
+      "origen_extraccion": "Web_Oficial",
+      "accion_requerida": "Añadir a scraper_web.py"
+    },
+    "datos_oferta_extraida": {
+      "tipo_inmueble": null,
+      "precio_numerico": null,
+      "moneda": null,
+      "ubicacion_zona": null,
+      "superficie_m2": null
+    }
+  },
+  {
+    "inmobiliaria": {
+      "nombre_comercial": "Inmobiliaria Wainer",
+      "usuario_instagram": "@inmobiliaria.wainer",
+      "url_web_oficial": null,
+      "telefono_contacto": "wa.me/5493814121334"
+    },
+    "parametros_sistema": {
+      "origen_extraccion": "Instagram_IA",
+      "accion_requerida": "Inyectar directo a Supabase"
+    },
+    "datos_oferta_extraida": {
+      "tipo_inmueble": null,
+      "precio_numerico": null,
+      "moneda": null,
+      "ubicacion_zona": null,
+      "superficie_m2": null
+    }
+  },
+  {
+    "inmobiliaria": {
+      "nombre_comercial": "Inmobiliaria Sinergia",
+      "usuario_instagram": "@sinergianegociosinmobiliarios",
+      "url_web_oficial": null,
+      "telefono_contacto": "wa.link/0tfy7i"
+    },
+    "parametros_sistema": {
+      "origen_extraccion": "Instagram_IA",
+      "accion_requerida": "Inyectar directo a Supabase"
+    },
+    "datos_oferta_extraida": {
+      "tipo_inmueble": null,
+      "precio_numerico": null,
+      "moneda": null,
+      "ubicacion_zona": null,
+      "superficie_m2": null
+    }
+  },
+  {
+    "inmobiliaria": {
+      "nombre_comercial": "INMOBILIARIA ROJAS CORNEJO",
+      "usuario_instagram": "@rojascornejo.propiedades",
+      "url_web_oficial": "www.rojascornejopropiedades.com.ar",
+      "telefono_contacto": null
+    },
+    "parametros_sistema": {
+      "origen_extraccion": "Web_Oficial",
+      "accion_requerida": "Añadir a scraper_web.py"
+    },
+    "datos_oferta_extraida": {
+      "tipo_inmueble": null,
+      "precio_numerico": null,
+      "moneda": null,
+      "ubicacion_zona": null,
+      "superficie_m2": null
+    }
+  },
+  {
+    "inmobiliaria": {
+      "nombre_comercial": "Inmobiliaria García Nielsen",
+      "usuario_instagram": "@garcia.nielsen",
+      "url_web_oficial": "garcianielsen-asoc.com.ar",
+      "telefono_contacto": null
+    },
+    "parametros_sistema": {
+      "origen_extraccion": "Web_Oficial",
+      "accion_requerida": "Añadir a scraper_web.py"
+    },
+    "datos_oferta_extraida": {
+      "tipo_inmueble": null,
+      "precio_numerico": null,
+      "moneda": null,
+      "ubicacion_zona": null,
+      "superficie_m2": null
+    }
+  },
+  {
+    "inmobiliaria": {
+      "nombre_comercial": "Inmobiliaria Rodriguez Pacios",
+      "usuario_instagram": "@rodriguez.pacios.inmobiliaria",
+      "url_web_oficial": null,
+      "telefono_contacto": "wa.me/message/H3HJRYXRGBVGO1"
+    },
+    "parametros_sistema": {
+      "origen_extraccion": "Instagram_IA",
+      "accion_requerida": "Inyectar directo a Supabase"
+    },
+    "datos_oferta_extraida": {
+      "tipo_inmueble": null,
+      "precio_numerico": null,
+      "moneda": null,
+      "ubicacion_zona": null,
+      "superficie_m2": null
+    }
+  },
+  {
+    "inmobiliaria": {
+      "nombre_comercial": "Andrés Alú",
+      "usuario_instagram": "@inmobiliaria_alu",
+      "url_web_oficial": null,
+      "telefono_contacto": "wa.me/543..."
+    },
+    "parametros_sistema": {
+      "origen_extraccion": "Instagram_IA",
+      "accion_requerida": "Inyectar directo a Supabase"
+    },
+    "datos_oferta_extraida": {
+      "tipo_inmueble": null,
+      "precio_numerico": null,
+      "moneda": null,
+      "ubicacion_zona": null,
+      "superficie_m2": null
+    }
+  },
+  {
+    "inmobiliaria": {
+      "nombre_comercial": "Negocios Inmobiliarios (Pombo & Petracca)",
+      "usuario_instagram": "@pombopetracca.inmobiliaria",
+      "url_web_oficial": null,
+      "telefono_contacto": "wa.link/7vpmbf"
+    },
+    "parametros_sistema": {
+      "origen_extraccion": "Instagram_IA",
+      "accion_requerida": "Inyectar directo a Supabase"
+    },
+    "datos_oferta_extraida": {
+      "tipo_inmueble": null,
+      "precio_numerico": null,
+      "moneda": null,
+      "ubicacion_zona": null,
+      "superficie_m2": null
+    }
+  },
+  {
+    "inmobiliaria": {
+      "nombre_comercial": "Inmobiliaria Parthenon",
+      "usuario_instagram": "@parthenon_inmobiliaria",
+      "url_web_oficial": null,
+      "telefono_contacto": "linktr.ee/parthenonargentina"
+    },
+    "parametros_sistema": {
+      "origen_extraccion": "Instagram_IA",
+      "accion_requerida": "Inyectar directo a Supabase"
+    },
+    "datos_oferta_extraida": {
+      "tipo_inmueble": null,
+      "precio_numerico": null,
+      "moneda": null,
+      "ubicacion_zona": null,
+      "superficie_m2": null
+    }
+  },
+  {
+    "inmobiliaria": {
+      "nombre_comercial": "Tecnocivil Constructora",
+      "usuario_instagram": "@tecnocivilconstructora",
+      "url_web_oficial": "www.tecnocivil.com.ar",
+      "telefono_contacto": null
+    },
+    "parametros_sistema": {
+      "origen_extraccion": "Web_Oficial",
+      "accion_requerida": "Añadir a scraper_web.py"
+    },
+    "datos_oferta_extraida": {
+      "tipo_inmueble": null,
+      "precio_numerico": null,
+      "moneda": null,
+      "ubicacion_zona": null,
+      "superficie_m2": null
+    }
+  },
+  {
+    "inmobiliaria": {
+      "nombre_comercial": "Guzmán & Guzmán Inmobiliaria",
+      "usuario_instagram": "@guzmanyguzmaninmobiliaria",
+      "url_web_oficial": "www.guzmanyguzman.com.ar",
+      "telefono_contacto": null
+    },
+    "parametros_sistema": {
+      "origen_extraccion": "Web_Oficial",
+      "accion_requerida": "Añadir a scraper_web.py"
+    },
+    "datos_oferta_extraida": {
+      "tipo_inmueble": null,
+      "precio_numerico": null,
+      "moneda": null,
+      "ubicacion_zona": null,
+      "superficie_m2": null
+    }
+  },
+  {
+    "inmobiliaria": {
+      "nombre_comercial": "City Propiedades",
+      "usuario_instagram": "@inmobiliaria_city_propiedades",
+      "url_web_oficial": "www.citypropiedades.com",
+      "telefono_contacto": "03814244265"
+    },
+    "parametros_sistema": {
+      "origen_extraccion": "Web_Oficial",
+      "accion_requerida": "Añadir a scraper_web.py"
+    },
+    "datos_oferta_extraida": {
+      "tipo_inmueble": null,
+      "precio_numerico": null,
+      "moneda": null,
+      "ubicacion_zona": null,
+      "superficie_m2": null
+    }
+  },
+  {
+    "inmobiliaria": {
+      "nombre_comercial": "Inmobiliaria Diaz Taddei",
+      "usuario_instagram": "@inmobiliariadiaztaddei_",
+      "url_web_oficial": "www.inmobiliariadiaztaddei.com.ar",
+      "telefono_contacto": "3814159566"
+    },
+    "parametros_sistema": {
+      "origen_extraccion": "Web_Oficial",
+      "accion_requerida": "Añadir a scraper_web.py"
+    },
+    "datos_oferta_extraida": {
+      "tipo_inmueble": null,
+      "precio_numerico": null,
+      "moneda": null,
+      "ubicacion_zona": null,
+      "superficie_m2": null
+    }
+  },
+  {
+    "inmobiliaria": {
+      "nombre_comercial": "Labastida Inmobiliaria",
+      "usuario_instagram": "@labastida_inmobiliaria",
+      "url_web_oficial": "www.labastida.com.ar",
+      "telefono_contacto": null
+    },
+    "parametros_sistema": {
+      "origen_extraccion": "Web_Oficial",
+      "accion_requerida": "Añadir a scraper_web.py"
+    },
+    "datos_oferta_extraida": {
+      "tipo_inmueble": null,
+      "precio_numerico": null,
+      "moneda": null,
+      "ubicacion_zona": null,
+      "superficie_m2": null
+    }
+  },
+  {
+    "inmobiliaria": {
+      "nombre_comercial": "SCHUJMAN DESARROLLOS INMOBILIARIOS",
+      "usuario_instagram": "@schujmanok",
+      "url_web_oficial": null,
+      "telefono_contacto": "walink.co/fb45d5"
+    },
+    "parametros_sistema": {
+      "origen_extraccion": "Instagram_IA",
+      "accion_requerida": "Inyectar directo a Supabase"
+    },
+    "datos_oferta_extraida": {
+      "tipo_inmueble": null,
+      "precio_numerico": null,
+      "moneda": null,
+      "ubicacion_zona": null,
+      "superficie_m2": null
+    }
+  },
+  {
+    "inmobiliaria": {
+      "nombre_comercial": "Master Inmobiliaria",
+      "usuario_instagram": "@masterinmobiliaria",
+      "url_web_oficial": null,
+      "telefono_contacto": "wa.me/5493815038111"
+    },
+    "parametros_sistema": {
+      "origen_extraccion": "Instagram_IA",
+      "accion_requerida": "Inyectar directo a Supabase"
+    },
+    "datos_oferta_extraida": {
+      "tipo_inmueble": null,
+      "precio_numerico": null,
+      "moneda": null,
+      "ubicacion_zona": null,
+      "superficie_m2": null
+    }
+  },
+  {
+    "inmobiliaria": {
+      "nombre_comercial": "Galindo SA",
+      "usuario_instagram": "@galindosa_arg",
+      "url_web_oficial": "www.galindosa.com.ar",
+      "telefono_contacto": null
+    },
+    "parametros_sistema": {
+      "origen_extraccion": "Web_Oficial",
+      "accion_requerida": "Añadir a scraper_web.py"
+    },
+    "datos_oferta_extraida": {
+      "tipo_inmueble": null,
+      "precio_numerico": null,
+      "moneda": null,
+      "ubicacion_zona": null,
+      "superficie_m2": null
+    }
+  },
+  {
+    "inmobiliaria": {
+      "nombre_comercial": "MARTIN SENCO | Real Estate",
+      "usuario_instagram": "@martinsencoinmobiliaria",
+      "url_web_oficial": null,
+      "telefono_contacto": "wa.me/549..."
+    },
+    "parametros_sistema": {
+      "origen_extraccion": "Instagram_IA",
+      "accion_requerida": "Inyectar directo a Supabase"
+    },
+    "datos_oferta_extraida": {
+      "tipo_inmueble": null,
+      "precio_numerico": null,
+      "moneda": null,
+      "ubicacion_zona": null,
+      "superficie_m2": null
+    }
+  },
+  {
+    "inmobiliaria": {
+      "nombre_comercial": "Avellaneda & Posse",
+      "usuario_instagram": "@avellanedayposse",
+      "url_web_oficial": null,
+      "telefono_contacto": "linktr.ee/avellanedayposse"
+    },
+    "parametros_sistema": {
+      "origen_extraccion": "Instagram_IA",
+      "accion_requerida": "Inyectar directo a Supabase"
+    },
+    "datos_oferta_extraida": {
+      "tipo_inmueble": null,
+      "precio_numerico": null,
+      "moneda": null,
+      "ubicacion_zona": null,
+      "superficie_m2": null
+    }
+  },
+  {
+    "inmobiliaria": {
+      "nombre_comercial": "Ostengo Inmobiliaria",
+      "usuario_instagram": "@ostengo_inmobiliaria",
+      "url_web_oficial": null,
+      "telefono_contacto": "wa.me/3815061616"
+    },
+    "parametros_sistema": {
+      "origen_extraccion": "Instagram_IA",
+      "accion_requerida": "Inyectar directo a Supabase"
+    },
+    "datos_oferta_extraida": {
+      "tipo_inmueble": null,
+      "precio_numerico": null,
+      "moneda": null,
+      "ubicacion_zona": null,
+      "superficie_m2": null
+    }
+  },
+  {
+    "inmobiliaria": {
+      "nombre_comercial": "Inmobiliaria y propiedades - Tucuman",
+      "usuario_instagram": "@tucuman_inmobiliaria",
+      "url_web_oficial": null,
+      "telefono_contacto": "wa.link/pm3xc4"
+    },
+    "parametros_sistema": {
+      "origen_extraccion": "Instagram_IA",
+      "accion_requerida": "Inyectar directo a Supabase"
+    },
+    "datos_oferta_extraida": {
+      "tipo_inmueble": null,
+      "precio_numerico": null,
+      "moneda": null,
+      "ubicacion_zona": null,
+      "superficie_m2": null
+    }
+  },
+  {
+    "inmobiliaria": {
+      "nombre_comercial": "Caram & Arana Inmobiliaria",
+      "usuario_instagram": "@inmobiliaria.caramyarana",
+      "url_web_oficial": "www.caramyarana.com.ar",
+      "telefono_contacto": null
+    },
+    "parametros_sistema": {
+      "origen_extraccion": "Web_Oficial",
+      "accion_requerida": "Añadir a scraper_web.py"
+    },
+    "datos_oferta_extraida": {
+      "tipo_inmueble": null,
+      "precio_numerico": null,
+      "moneda": null,
+      "ubicacion_zona": null,
+      "superficie_m2": null
+    }
+  },
+  {
+    "inmobiliaria": {
+      "nombre_comercial": "Desarrollos Inmobiliarios Tuc.",
+      "usuario_instagram": "@desarrollo_inmobiliario_tuc",
+      "url_web_oficial": null,
+      "telefono_contacto": "m.facebook.com/desarrollosinmobiliario..."
+    },
+    "parametros_sistema": {
+      "origen_extraccion": "Instagram_IA",
+      "accion_requerida": "Inyectar directo a Supabase"
+    },
+    "datos_oferta_extraida": {
+      "tipo_inmueble": null,
+      "precio_numerico": null,
+      "moneda": null,
+      "ubicacion_zona": null,
+      "superficie_m2": null
+    }
+  },
+  {
+    "inmobiliaria": {
+      "nombre_comercial": "Norurbana - Inmobiliaria & Arquitectura",
+      "usuario_instagram": "@norurbanatucuman",
+      "url_web_oficial": "www.norurbana.com.ar",
+      "telefono_contacto": null
+    },
+    "parametros_sistema": {
+      "origen_extraccion": "Web_Oficial",
+      "accion_requerida": "Añadir a scraper_web.py"
+    },
+    "datos_oferta_extraida": {
+      "tipo_inmueble": null,
+      "precio_numerico": null,
+      "moneda": null,
+      "ubicacion_zona": null,
+      "superficie_m2": null
+    }
+  },
+  {
+    "inmobiliaria": {
+      "nombre_comercial": "Garcia Pinto Propiedades",
+      "usuario_instagram": "@garciapintopropiedades",
+      "url_web_oficial": null,
+      "telefono_contacto": "wa.link/yt1fyd"
+    },
+    "parametros_sistema": {
+      "origen_extraccion": "Instagram_IA",
+      "accion_requerida": "Inyectar directo a Supabase"
+    },
+    "datos_oferta_extraida": {
+      "tipo_inmueble": null,
+      "precio_numerico": null,
+      "moneda": null,
+      "ubicacion_zona": null,
+      "superficie_m2": null
+    }
+  },
+  {
+    "inmobiliaria": {
+      "nombre_comercial": "Inmobiliaria Terra Propiedades",
+      "usuario_instagram": "@terrapropiedades",
+      "url_web_oficial": null,
+      "telefono_contacto": "linktr.ee/terrapropiedadessrl"
+    },
+    "parametros_sistema": {
+      "origen_extraccion": "Instagram_IA",
+      "accion_requerida": "Inyectar directo a Supabase"
+    },
+    "datos_oferta_extraida": {
+      "tipo_inmueble": null,
+      "precio_numerico": null,
+      "moneda": null,
+      "ubicacion_zona": null,
+      "superficie_m2": null
+    }
+  },
+  {
+    "inmobiliaria": {
+      "nombre_comercial": "Avanco Constructora",
+      "usuario_instagram": "@avanco.constructora",
+      "url_web_oficial": null,
+      "telefono_contacto": "wa.me/543..."
+    },
+    "parametros_sistema": {
+      "origen_extraccion": "Instagram_IA",
+      "accion_requerida": "Inyectar directo a Supabase"
+    },
+    "datos_oferta_extraida": {
+      "tipo_inmueble": null,
+      "precio_numerico": null,
+      "moneda": null,
+      "ubicacion_zona": null,
+      "superficie_m2": null
+    }
+  },
+  {
+    "inmobiliaria": {
+      "nombre_comercial": "Los Ceibos Inmobiliaria",
+      "usuario_instagram": "@losceibosinmobiliariatuc",
+      "url_web_oficial": null,
+      "telefono_contacto": "wa.link/y2620i"
+    },
+    "parametros_sistema": {
+      "origen_extraccion": "Instagram_IA",
+      "accion_requerida": "Inyectar directo a Supabase"
+    },
+    "datos_oferta_extraida": {
+      "tipo_inmueble": null,
+      "precio_numerico": null,
+      "moneda": null,
+      "ubicacion_zona": null,
+      "superficie_m2": null
+    }
+  },
+  {
+    "inmobiliaria": {
+      "nombre_comercial": "Inmobiliaria Covac",
+      "usuario_instagram": "@inmobiliariacovac",
+      "url_web_oficial": null,
+      "telefono_contacto": "linktr.ee/inmobiliariacovac"
+    },
+    "parametros_sistema": {
+      "origen_extraccion": "Instagram_IA",
+      "accion_requerida": "Inyectar directo a Supabase"
+    },
+    "datos_oferta_extraida": {
+      "tipo_inmueble": null,
+      "precio_numerico": null,
+      "moneda": null,
+      "ubicacion_zona": null,
+      "superficie_m2": null
+    }
+  },
+  {
+    "inmobiliaria": {
+      "nombre_comercial": "Inmobiliaria Ing. Perez Jaime",
+      "usuario_instagram": "@inmobiliariaperezjaime",
+      "url_web_oficial": null,
+      "telefono_contacto": "api.whatsapp.com/send?phone=5438136..."
+    },
+    "parametros_sistema": {
+      "origen_extraccion": "Instagram_IA",
+      "accion_requerida": "Inyectar directo a Supabase"
+    },
+    "datos_oferta_extraida": {
+      "tipo_inmueble": null,
+      "precio_numerico": null,
+      "moneda": null,
+      "ubicacion_zona": null,
+      "superficie_m2": null
+    }
+  },
+  {
+    "inmobiliaria": {
+      "nombre_comercial": "CAM INMOBILIARIA BY BEAUTY",
+      "usuario_instagram": "@caminmobiliaria_bybeauty",
+      "url_web_oficial": null,
+      "telefono_contacto": "3815..."
+    },
+    "parametros_sistema": {
+      "origen_extraccion": "Instagram_IA",
+      "accion_requerida": "Inyectar directo a Supabase"
+    },
+    "datos_oferta_extraida": {
+      "tipo_inmueble": null,
+      "precio_numerico": null,
+      "moneda": null,
+      "ubicacion_zona": null,
+      "superficie_m2": null
+    }
+  },
+  {
+    "inmobiliaria": {
+      "nombre_comercial": "Inmobiliaria MGC Brokers",
+      "usuario_instagram": "@inmobiliaria_mgcbrokers",
+      "url_web_oficial": null,
+      "telefono_contacto": "wa.link/v0781g"
+    },
+    "parametros_sistema": {
+      "origen_extraccion": "Instagram_IA",
+      "accion_requerida": "Inyectar directo a Supabase"
+    },
+    "datos_oferta_extraida": {
+      "tipo_inmueble": null,
+      "precio_numerico": null,
+      "moneda": null,
+      "ubicacion_zona": null,
+      "superficie_m2": null
+    }
+  },
+  {
+    "inmobiliaria": {
+      "nombre_comercial": "CM desarrollos Inmobiliarios",
+      "usuario_instagram": "@cm_desarrollos_inmobiliarios",
+      "url_web_oficial": "cmdesarrollosinmobiliarios.esecure02.c...",
+      "telefono_contacto": null
+    },
+    "parametros_sistema": {
+      "origen_extraccion": "Web_Oficial",
+      "accion_requerida": "Añadir a scraper_web.py"
+    },
+    "datos_oferta_extraida": {
+      "tipo_inmueble": null,
+      "precio_numerico": null,
+      "moneda": null,
+      "ubicacion_zona": null,
+      "superficie_m2": null
+    }
+  },
+  {
+    "inmobiliaria": {
+      "nombre_comercial": "ELARCO-Desarrollo Inmobiliario",
+      "usuario_instagram": "@elarcoinversiones",
+      "url_web_oficial": "elarcoinversiones.com.ar",
+      "telefono_contacto": null
+    },
+    "parametros_sistema": {
+      "origen_extraccion": "Web_Oficial",
+      "accion_requerida": "Añadir a scraper_web.py"
+    },
+    "datos_oferta_extraida": {
+      "tipo_inmueble": null,
+      "precio_numerico": null,
+      "moneda": null,
+      "ubicacion_zona": null,
+      "superficie_m2": null
+    }
+  },
+  {
+    "inmobiliaria": {
+      "nombre_comercial": "Patricia Schilman Inmobiliaria",
+      "usuario_instagram": "@patricia.schilman.inmobiliaria",
+      "url_web_oficial": null,
+      "telefono_contacto": "wa.me/549381979610"
+    },
+    "parametros_sistema": {
+      "origen_extraccion": "Instagram_IA",
+      "accion_requerida": "Inyectar directo a Supabase"
+    },
+    "datos_oferta_extraida": {
+      "tipo_inmueble": null,
+      "precio_numerico": null,
+      "moneda": null,
+      "ubicacion_zona": null,
+      "superficie_m2": null
+    }
+  },
+  {
+    "inmobiliaria": {
+      "nombre_comercial": "Quorum Inmobiliaria",
+      "usuario_instagram": "@quorum_inmobiliaria_tuc",
+      "url_web_oficial": "quoruminmobiliaria.netlify.app",
+      "telefono_contacto": null
+    },
+    "parametros_sistema": {
+      "origen_extraccion": "Web_Oficial",
+      "accion_requerida": "Añadir a scraper_web.py"
+    },
+    "datos_oferta_extraida": {
+      "tipo_inmueble": null,
+      "precio_numerico": null,
+      "moneda": null,
+      "ubicacion_zona": null,
+      "superficie_m2": null
+    }
+  }
+]

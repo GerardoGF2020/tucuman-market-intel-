@@ -1,0 +1,9 @@
+streamlit
+streamlit-folium
+folium
+pandas
+numpy
+sqlalchemy
+psycopg2-binary
+requests
+beautifulsoup4
