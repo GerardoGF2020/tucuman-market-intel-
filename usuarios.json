@@ -1,0 +1,23 @@
+{
+  "gerardocggf@gmail.com": {
+    "clave": "tucuman2026",
+    "estado": "activo",
+    "rol": "admin",
+    "nombre": "Gerardo",
+    "email": "gerardocggf@gmail.com"
+  },
+  "gerardo": {
+    "clave": "tucuman2026",
+    "estado": "activo",
+    "rol": "admin",
+    "nombre": "Gerardo",
+    "email": "gerardocggf@gmail.com"
+  },
+  "admin": {
+    "clave": "tucuman2026",
+    "estado": "activo",
+    "rol": "admin",
+    "nombre": "Administrador",
+    "email": "admin@inmobiliaria.com"
+  }
+}

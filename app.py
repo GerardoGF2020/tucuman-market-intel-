@@ -13,6 +13,243 @@ from streamlit_folium import st_folium
 
 st.set_page_config(page_title="Market Intelligence Tucumán", page_icon="🏠", layout="wide")
 
+
+# ---------------------------------------------------------------------
+# Sistema de Autenticación, Registro y Autogestión de Usuarios
+# ---------------------------------------------------------------------
+USUARIOS_DEFAULT = {
+    "gerardocggf@gmail.com": {"clave": "tucuman2026", "estado": "activo", "rol": "admin", "nombre": "Gerardo (Admin)", "email": "gerardocggf@gmail.com"},
+    "gerardo": {"clave": "tucuman2026", "estado": "activo", "rol": "admin", "nombre": "Gerardo (Admin)", "email": "gerardocggf@gmail.com"},
+    "admin": {"clave": "tucuman2026", "estado": "activo", "rol": "admin", "nombre": "Administrador", "email": "admin@inmobiliaria.com"},
+}
+USUARIOS_FILE = os.path.join(os.path.dirname(__file__), "usuarios.json")
+
+
+def _cargar_base_usuarios() -> dict:
+    """Carga todos los usuarios normalizados (admin, guardados en JSON y secrets)."""
+    cuentas = {u: dict(d) for u, d in USUARIOS_DEFAULT.items()}
+    if os.path.exists(USUARIOS_FILE):
+        try:
+            import json
+            with open(USUARIOS_FILE, "r", encoding="utf-8") as f:
+                guardados = json.load(f)
+                for u, datos in guardados.items():
+                    u_norm = u.strip().lower()
+                    if isinstance(datos, str):
+                        cuentas[u_norm] = {"clave": datos, "estado": "activo", "rol": "operador", "nombre": u_norm, "email": u_norm}
+                    elif isinstance(datos, dict):
+                        cuentas[u_norm] = datos
+        except Exception:
+            pass
+    try:
+        if "passwords" in st.secrets:
+            for u, p in dict(st.secrets["passwords"]).items():
+                u_norm = u.strip().lower()
+                cuentas[u_norm] = {"clave": str(p), "estado": "activo", "rol": "operador", "nombre": u_norm, "email": u_norm}
+    except Exception:
+        pass
+    return cuentas
+
+
+def _guardar_usuarios_disco(cuentas: dict) -> bool:
+    """Persiste el diccionario de usuarios en usuarios.json."""
+    import json
+    try:
+        with open(USUARIOS_FILE, "w", encoding="utf-8") as f:
+            json.dump(cuentas, f, ensure_ascii=False, indent=2)
+        return True
+    except Exception:
+        return False
+
+
+def _solicitar_registro(email: str, clave: str, nombre: str) -> tuple[bool, str]:
+    """Registra un nuevo operador por correo electrónico en estado pendiente."""
+    cuentas = _cargar_base_usuarios()
+    em = email.strip().lower()
+    nom = nombre.strip()
+    if not em or not clave or not nom:
+        return False, "Completá todos los campos requeridos (Nombre, Correo y Contraseña)."
+    if "@" not in em or "." not in em.split("@")[-1]:
+        return False, f"El correo '{em}' no tiene un formato válido (ejemplo: usuario@dominio.com)."
+    if len(clave) < 6:
+        return False, "La contraseña debe tener al menos 6 caracteres."
+    if em in cuentas:
+        if cuentas[em].get("estado") == "pendiente":
+            return False, f"Ya existe una solicitud pendiente de autorización para '{em}'."
+        return False, f"El correo '{em}' ya está registrado. Podés iniciar sesión o cambiar tu clave."
+
+    cuentas[em] = {
+        "clave": clave.strip(),
+        "estado": "pendiente",
+        "rol": "operador",
+        "nombre": nom,
+        "email": em,
+        "fecha_solicitud": pd.Timestamp.now().strftime("%d/%m/%Y %H:%M")
+    }
+    if _guardar_usuarios_disco(cuentas):
+        return True, f"¡Solicitud registrada con éxito para {em}! El Administrador (Gerardo) debe autorizar tu acceso para que puedas ingresar."
+    return False, "Error al registrar la solicitud en el sistema."
+
+
+def _aprobar_usuario(email_o_user: str) -> bool:
+    """El administrador aprueba una cuenta pendiente."""
+    cuentas = _cargar_base_usuarios()
+    u = email_o_user.strip().lower()
+    if u in cuentas:
+        cuentas[u]["estado"] = "activo"
+        return _guardar_usuarios_disco(cuentas)
+    return False
+
+
+def _rechazar_usuario(email_o_user: str) -> bool:
+    """El administrador rechaza o elimina un usuario."""
+    cuentas = _cargar_base_usuarios()
+    u = email_o_user.strip().lower()
+    if u in ["gerardocggf@gmail.com", "gerardo", "admin"]:
+        return False
+    if u in cuentas:
+        del cuentas[u]
+        return _guardar_usuarios_disco(cuentas)
+    return False
+
+
+def _cambiar_propia_clave(email_o_user: str, clave_actual: str, clave_nueva: str) -> tuple[bool, str]:
+    """Permite al usuario cambiar su propia contraseña sin intervención del administrador."""
+    cuentas = _cargar_base_usuarios()
+    u = email_o_user.strip().lower()
+    if u not in cuentas:
+        return False, "Correo o usuario no encontrado en el sistema."
+    if cuentas[u].get("clave") != clave_actual:
+        return False, "La contraseña actual no coincide."
+    if not clave_nueva or len(clave_nueva) < 6:
+        return False, "La nueva contraseña debe tener al menos 6 caracteres."
+    if clave_actual == clave_nueva:
+        return False, "La nueva contraseña debe ser diferente a la anterior."
+    cuentas[u]["clave"] = clave_nueva.strip()
+    if _guardar_usuarios_disco(cuentas):
+        return True, "¡Contraseña actualizada exitosamente! Ya podés ingresar con tu nueva clave."
+    return False, "Error al guardar la nueva contraseña."
+    cuentas = _cargar_base_usuarios()
+    u = usuario.strip().lower()
+    if u not in cuentas:
+        return False, "Usuario no encontrado."
+    if cuentas[u]["clave"] != clave_actual:
+        return False, "La contraseña actual no coincide."
+    if not clave_nueva or len(clave_nueva) < 4:
+        return False, "La nueva contraseña debe tener al menos 4 caracteres."
+    cuentas[u]["clave"] = clave_nueva.strip()
+    if _guardar_usuarios_disco(cuentas):
+        return True, "¡Contraseña actualizada exitosamente!"
+    return False, "Error al guardar la nueva contraseña."
+
+
+def verificar_autenticacion():
+    """Pantalla de acceso idéntica a la plataforma de inteligencia de mercado."""
+    cuentas = _cargar_base_usuarios()
+
+    if st.session_state.get("authenticated", False):
+        return True
+
+    st.write("")
+    st.write("")
+    _, col, _ = st.columns([1, 1.4, 1])
+    with col:
+        st.markdown("## 🏠 Mercado Inmobiliario Tucumán")
+        st.caption("Plataforma de Inteligencia y Monitoreo del Sector")
+
+        # Selector visual de acción idéntico
+        opcion = st.radio(
+            "Seleccione qué desea hacer:",
+            ["🔑 Iniciar Sesión", "📝 Solicitar Cuenta Nueva", "🔄 Olvidé mi Contraseña"],
+            horizontal=True,
+            label_visibility="collapsed",
+        )
+
+        st.markdown("---")
+
+        # --------------------------------------------------------- 1: INICIAR SESIÓN
+        if opcion == "🔑 Iniciar Sesión":
+            st.subheader("Ingreso al Sistema")
+            bloqueado = st.session_state.get("intentos", 0) >= 5
+            with st.form("form_login"):
+                u = st.text_input("Correo Electrónico (o usuario admin)", placeholder="ejemplo@correo.com", key="login_email").strip().lower()
+                p = st.text_input("Contraseña", type="password", key="login_pass")
+                submit = st.form_submit_button("Ingresar", use_container_width=True, disabled=bloqueado)
+
+            if bloqueado:
+                st.error("🔒 Demasiados intentos fallidos. Espere unos momentos y recargue la página.")
+            elif submit:
+                if u in cuentas:
+                    u_info = cuentas[u]
+                    if u_info.get("estado") == "pendiente":
+                        st.warning("⏳ Tu cuenta fue registrada pero **está pendiente de autorización por el Administrador (Gerardo)**. Apenas te dé de alta podrás ingresar.")
+                    elif u_info.get("clave") == p:
+                        st.session_state["authenticated"] = True
+                        st.session_state["username"] = u
+                        st.session_state["is_admin"] = (u in ["gerardo", "admin"])
+                        st.session_state["intentos"] = 0
+                        st.rerun()
+                    else:
+                        st.session_state["intentos"] = st.session_state.get("intentos", 0) + 1
+                        st.error("Contraseña incorrecta. Verificá tu clave.")
+                else:
+                    st.session_state["intentos"] = st.session_state.get("intentos", 0) + 1
+                    st.error("El usuario o correo no está registrado en el sistema.")
+
+        # --------------------------------------------------------- 2: SOLICITAR CUENTA NUEVA
+        elif opcion == "📝 Solicitar Cuenta Nueva":
+            st.subheader("Registro de Nuevo Usuario")
+            st.info("💡 **Tu Correo Electrónico o Usuario será tu acceso**. Por seguridad, el Administrador (Gerardo) debe autorizar tu acceso antes de que puedas ingresar.")
+
+            with st.form("form_registro"):
+                reg_nombre = st.text_input("Nombre y Apellido", placeholder="Ej. Juan Pérez")
+                reg_email = st.text_input("Correo Electrónico o Usuario deseado", placeholder="juan.perez@empresa.com.ar").strip().lower()
+                reg_pass1 = st.text_input("Contraseña deseada (mínimo 6 caracteres)", type="password")
+                reg_pass2 = st.text_input("Confirmar Contraseña", type="password")
+                reg_submit = st.form_submit_button("Solicitar Acceso al Administrador", use_container_width=True)
+
+            if reg_submit:
+                if not reg_nombre or not reg_email or not reg_pass1:
+                    st.warning("Todos los campos son obligatorios.")
+                elif reg_pass1 != reg_pass2:
+                    st.warning("Las contraseñas no coinciden.")
+                elif len(reg_pass1) < 6:
+                    st.warning("La contraseña debe tener al menos 6 caracteres.")
+                else:
+                    ok, msg = _solicitar_registro(reg_email, reg_pass1, reg_nombre)
+                    if ok:
+                        st.success(f"✅ {msg}")
+                    else:
+                        st.error(msg)
+
+        # --------------------------------------------------------- 3: OLVIDÉ MI CONTRASEÑA
+        elif opcion == "🔄 Olvidé mi Contraseña":
+            st.subheader("Recuperación de Contraseña")
+            st.caption("Ingresá tu correo o usuario registrado para actualizar tu clave.")
+
+            with st.form("form_recup"):
+                rec_user = st.text_input("Correo Electrónico o Usuario registrado", placeholder="tu.correo@empresa.com.ar").strip().lower()
+                c_anterior = st.text_input("Contraseña anterior (si la recordás)", type="password")
+                c_nueva = st.text_input("Nueva Contraseña deseada", type="password")
+                rec_submit = st.form_submit_button("Actualizar mi Contraseña", use_container_width=True)
+
+            if rec_submit:
+                if not rec_user or not c_nueva:
+                    st.warning("Completá los campos requeridos.")
+                elif rec_user in cuentas:
+                    ok, msg = _cambiar_propia_clave(rec_user, c_anterior, c_nueva)
+                    if ok:
+                        st.success(f"✅ {msg} Ya podés ir a 'Iniciar Sesión' con tu nueva clave.")
+                    else:
+                        st.error(f"{msg} Si no recordás tu clave anterior, contactá a Gerardo para que te la restablezca en 1 clic.")
+                else:
+                    st.error("Ese usuario o correo no figura en el sistema.")
+
+    st.stop()
+
+
+verificar_autenticacion()
+
 CENTER = (-26.8083, -65.2176)  # San Miguel de Tucumán
 NEW_DAYS, OLD_DAYS = 7, 90
 TIPO_LABEL = {"Casa": "Casa", "Depto": "Departamento", "Lote": "Lote", "Local": "Local comercial"}
@@ -184,6 +421,80 @@ df["canal"] = np.where(
 )
 
 # ---------------- Sidebar ----------------
+usuario_activo = st.session_state.get("username", "autorizado")
+es_admin = st.session_state.get("is_admin", usuario_activo in ["gerardo", "admin"])
+st.sidebar.markdown(f"👤 **Usuario:** `{usuario_activo}` {'*(Administrador)*' if es_admin else '*(Operador)*'}")
+
+# Autogestión de clave para cualquier usuario conectado
+with st.sidebar.expander("🔑 Cambiar mi contraseña"):
+    with st.form("form_cambio_clave_propia"):
+        c_act = st.text_input("Contraseña actual", type="password")
+        c_nue = st.text_input("Nueva contraseña", type="password")
+        c_nue2 = st.text_input("Confirmar nueva contraseña", type="password")
+        if st.form_submit_button("Actualizar mi Clave", use_container_width=True):
+            if not c_act or not c_nue:
+                st.warning("Completá todos los campos.")
+            elif c_nue != c_nue2:
+                st.error("Las nuevas contraseñas no coinciden.")
+            else:
+                ok, msg = _cambiar_propia_clave(usuario_activo, c_act, c_nue)
+                if ok:
+                    st.success(msg)
+                else:
+                    st.error(msg)
+
+# Panel Exclusivo del Administrador (Gerardo)
+if es_admin:
+    cuentas_todas = _cargar_base_usuarios()
+    pendientes = [u for u, d in cuentas_todas.items() if d.get("estado") == "pendiente"]
+    
+    if pendientes:
+        st.sidebar.warning(f"🔔 **{len(pendientes)} solicitud(es) de alta pendiente(s)**")
+
+    with st.sidebar.expander(f"👥 Gestión y Altas de Operadores ({len(pendientes)} pendientes)", expanded=bool(pendientes)):
+        if pendientes:
+            st.markdown("### 🔔 Solicitudes por Aprobar:")
+            for p_user in pendientes:
+                p_info = cuentas_todas[p_user]
+                st.markdown(f"**Nombre:** {p_info.get('nombre', p_user)}  \n**Usuario:** `{p_user}`  \n*Fecha:* {p_info.get('fecha_solicitud', '')}")
+                c_btn1, c_btn2 = st.columns(2)
+                with c_btn1:
+                    if st.button("✅ Dar de Alta", key=f"apr_{p_user}", use_container_width=True):
+                        _aprobar_usuario(p_user)
+                        st.success(f"¡{p_user} dado de alta! Ya puede ingresar con su clave.")
+                        st.rerun()
+                with c_btn2:
+                    if st.button("❌ Rechazar", key=f"rec_{p_user}", use_container_width=True):
+                        _rechazar_usuario(p_user)
+                        st.info(f"Solicitud de {p_user} rechazada.")
+                        st.rerun()
+                st.markdown("---")
+        else:
+            st.caption("No hay solicitudes pendientes de aprobación.")
+
+        # Operadores activos
+        activos = [u for u, d in cuentas_todas.items() if d.get("estado") == "activo" and u not in ["gerardo", "admin"]]
+        if activos:
+            st.markdown("**Operadores Habilitados:**")
+            for act_u in activos:
+                nom = cuentas_todas[act_u].get("nombre", act_u)
+                st.markdown(f"• `{act_u}` ({nom})")
+            
+            st.markdown("---")
+            st.markdown("**Revocar Acceso:**")
+            u_baja = st.selectbox("Seleccionar operador a dar de baja", activos, key="sel_baja")
+            if st.button("🗑️ Dar de Baja", use_container_width=True):
+                if _rechazar_usuario(u_baja):
+                    st.success(f"Acceso de `{u_baja}` revocado.")
+                    st.rerun()
+
+if st.sidebar.button("🚪 Cerrar Sesión"):
+    st.session_state["authenticated"] = False
+    st.session_state.pop("username", None)
+    st.session_state.pop("is_admin", None)
+    st.rerun()
+st.sidebar.markdown("---")
+
 if origen == "real":
     n_ig = int((df["canal"] == "Instagram").sum())
     n_web = int((df["canal"] == "Web Oficial").sum())
@@ -192,9 +503,20 @@ if origen == "real":
 else:
     st.sidebar.warning(f"⚠️ DATOS DE PRUEBA (ficticios). {aviso}")
 st.sidebar.caption(f"🕒 Última actualización: {last_update:%d/%m/%Y %H:%M:%S}  \nSe actualiza cada {CACHE_TTL // 60} min")
-if st.sidebar.button("🔄 Actualizar ahora"):
-    st.cache_data.clear()
-    st.rerun()
+
+col_act1, col_act2 = st.sidebar.columns(2)
+with col_act1:
+    if st.button("🔄 Actualizar", use_container_width=True):
+        st.cache_data.clear()
+        st.rerun()
+with col_act2:
+    excel_path = os.path.join(os.path.dirname(__file__), "Propiedades_Tucuman_Market_Intel.xlsx")
+    if os.path.exists(excel_path):
+        with open(excel_path, "rb") as f:
+            st.download_button("📥 Descargar Excel", data=f.read(), file_name="Propiedades_Tucuman.xlsx", mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", use_container_width=True)
+
+st.sidebar.markdown("☁️ [**Abrir Planilla en Google Drive**](https://drive.google.com/drive/folders/1-0RY6p6X4R7cvi0W8TTzyb7cwDaaZe2u)")
+st.sidebar.markdown("---")
 st.sidebar.header("🔎 Filtros")
 canales_sel = st.sidebar.multiselect(
     "📡 Canal de origen",
