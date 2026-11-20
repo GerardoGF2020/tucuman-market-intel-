@@ -548,6 +548,17 @@ m2_max_db = max(int(df.m2.max()), 100)
 rango_m2 = st.sidebar.slider("Rango de m² totales (0 = incluye sin dato)", 0, m2_max_db, (0, m2_max_db), step=10)
 monedas = st.sidebar.multiselect("Moneda original", ["USD", "ARS"], default=["USD", "ARS"])
 
+if "habitaciones" not in df.columns:
+    df["habitaciones"] = 0
+df["habitaciones"] = pd.to_numeric(df["habitaciones"], errors="coerce").fillna(0).astype(int)
+st.sidebar.subheader("🛏️ Dormitorios")
+dorm_opts = {"Cualquiera": 0, "1+": 1, "2+": 2, "3+": 3, "4+": 4}
+dorm_sel = st.sidebar.select_slider(
+    "Mínimo de dormitorios (los avisos sin dato siempre se muestran)",
+    options=list(dorm_opts), value="Cualquiera",
+)
+dorm_min = dorm_opts[dorm_sel]
+
 fuentes_disp = sorted(df.fuente.replace("", "Sin fuente").unique())
 fuentes_sel = st.sidebar.multiselect("Inmobiliaria / fuente", fuentes_disp, default=fuentes_disp)
 with st.sidebar.expander("🏢 Inmobiliarias en el mapa", expanded=True):
@@ -602,72 +613,249 @@ f = df[
     & df.moneda_original.isin(monedas)
     & df.precio_usd.between(*rango)
     & df.m2.between(*rango_m2)
+    & ((df.habitaciones == 0) | (df.habitaciones >= dorm_min))
     & df.fuente.replace("", "Sin fuente").isin(fuentes_sel)
 ]
 
 # ---------------- Main ----------------
+import altair as alt
+from folium.plugins import MarkerCluster
+
+st.markdown(
+    """
+<style>
+.block-container {padding-top: 1.4rem; max-width: 1500px;}
+div[data-testid="stMetric"] {
+    background: #ffffff; border: 1px solid #e3e8ef; border-left: 5px solid #2a6fdb;
+    border-radius: 10px; padding: 12px 16px; box-shadow: 0 1px 4px rgba(0,0,0,.06);
+}
+div[data-testid="stMetricValue"] {font-size: 1.7rem;}
+button[data-baseweb="tab"] {font-size: 1.02rem; font-weight: 600;}
+@media (max-width: 768px) {
+    .block-container {padding: .6rem .5rem;}
+    div[data-testid="stMetricValue"] {font-size: 1.25rem;}
+    h1 {font-size: 1.4rem !important;}
+}
+</style>
+""",
+    unsafe_allow_html=True,
+)
+
 st.title("🏠 Market Intelligence Inmobiliario – Tucumán")
-c1, c2, c3, c4 = st.columns(4)
-c1.metric("Propiedades", len(f))
-c2.metric("Precio mediano (USD)", f"{f.precio_usd.median():,.0f}" if len(f) else "–")
-c3.metric("USD/m² mediano", f"{f.precio_m2_usd.median():,.0f}" if len(f) else "–")
-c4.metric("DOM mediano", f"{f.dom.median():.0f}" if len(f) else "–")
+st.caption("Mapa, análisis de mercado, comparativa con Buenos Aires y planilla de propiedades. Usá los filtros de la barra lateral.")
 
-m = folium.Map(location=CENTER, zoom_start=12, tiles="OpenStreetMap")
-vistos_coord: dict[tuple[float, float], int] = {}
-for r in f.itertuples():
-    es_ig = getattr(r, "canal", "") == "Instagram"
-    col = "purple" if es_ig else color_for(r.dom)
-    icono = "camera" if es_ig else "home"
+# KPIs (los USD/m² ignoran avisos sin superficie para no distorsionar la mediana)
+f_m2 = f[(f.m2 > 0) & (f.precio_m2_usd > 0)]
+k1, k2, k3, k4, k5 = st.columns(5)
+k1.metric("Propiedades", f"{len(f):,}")
+k2.metric("Precio mediano (USD)", f"{f.precio_usd.median():,.0f}" if len(f) else "–")
+k3.metric("USD/m² mediano", f"{f_m2.precio_m2_usd.median():,.0f}" if len(f_m2) else "–")
+k4.metric("DOM mediano (días)", f"{f.dom.median():.0f}" if len(f) else "–")
+k5.metric("Inmobiliarias", f"{f.fuente.replace('', 'Sin fuente').nunique()}")
 
-    # Evita que dos propiedades con la misma coordenada de zona se tapen entre sí
-    clave_c = (round(float(r.lat), 4), round(float(r.lon), 4))
-    idx_c = vistos_coord.get(clave_c, 0)
-    vistos_coord[clave_c] = idx_c + 1
-    if idx_c > 0:
-        angulo = idx_c * 2.39996  # ángulo áureo en radianes para dispersión uniforme
-        radio = 0.0014 * np.sqrt(idx_c)
-        lat_pin = float(r.lat) + radio * float(np.cos(angulo))
-        lon_pin = float(r.lon) + radio * float(np.sin(angulo))
-    else:
+if f.empty:
+    st.warning("No hay propiedades con los filtros actuales. Ampliá los filtros en la barra lateral.")
+    st.stop()
+
+tab_mapa, tab_analisis, tab_comp, tab_tabla = st.tabs(
+    ["🗺️ Mapa", "📊 Análisis de mercado", "⚖️ Tucumán vs Buenos Aires", "📋 Planilla"]
+)
+
+# ============================ TAB 1: MAPA ============================
+with tab_mapa:
+    mc1, mc2 = st.columns([1, 1])
+    agrupar = mc1.toggle("📍 Agrupar pines cercanos (clusters)", value=True)
+    base_mapa = mc2.selectbox(
+        "Estilo de mapa", ["Calles (OpenStreetMap)", "Claro (CartoDB)", "Oscuro (CartoDB)"], label_visibility="collapsed"
+    )
+    tiles = {"Calles (OpenStreetMap)": "OpenStreetMap", "Claro (CartoDB)": "CartoDB positron",
+             "Oscuro (CartoDB)": "CartoDB dark_matter"}[base_mapa]
+
+    m = folium.Map(location=CENTER, zoom_start=12, tiles=tiles)
+    destino = MarkerCluster(name="Propiedades").add_to(m) if agrupar else m
+    vistos_coord: dict[tuple[float, float], int] = {}
+    for r in f.itertuples():
+        es_ig = getattr(r, "canal", "") == "Instagram"
+        col = "purple" if es_ig else color_for(r.dom)
+        icono = "camera" if es_ig else "home"
+
+        # Sin clusters: separa pines con idéntica coordenada para que no se tapen
         lat_pin, lon_pin = float(r.lat), float(r.lon)
+        if not agrupar:
+            clave_c = (round(lat_pin, 4), round(lon_pin, 4))
+            idx_c = vistos_coord.get(clave_c, 0)
+            vistos_coord[clave_c] = idx_c + 1
+            if idx_c > 0:
+                angulo = idx_c * 2.39996
+                radio = 0.0014 * np.sqrt(idx_c)
+                lat_pin += radio * float(np.cos(angulo))
+                lon_pin += radio * float(np.sin(angulo))
 
-    m2_pin = int(getattr(r, "m2_totales", 0) or getattr(r, "m2", 0) or 0)
-    m2_cub_pin = int(getattr(r, "m2_cubiertos", 0) or 0)
-    m2_badge = f"Total: {m2_pin:,} m² | Constr.: {m2_cub_pin:,} m²" if m2_pin > 0 else "s/d m²"
-    prefijo_ig = "📸 [IG] " if es_ig else ""
-    folium.Marker(
-        [lat_pin, lon_pin],
-        popup=folium.Popup(popup_html(r), max_width=275),
-        tooltip=f"{prefijo_ig}{TIPO_LABEL[r.tipo]} · USD {r.precio_usd:,.0f} · 📏 {m2_badge}",
-        icon=folium.Icon(color=col, icon=icono, prefix="fa"),
-    ).add_to(m)
+        m2_pin = int(getattr(r, "m2_totales", 0) or getattr(r, "m2", 0) or 0)
+        m2_cub_pin = int(getattr(r, "m2_cubiertos", 0) or 0)
+        m2_badge = f"Total: {m2_pin:,} m² | Constr.: {m2_cub_pin:,} m²" if m2_pin > 0 else "s/d m²"
+        prefijo_ig = "📸 [IG] " if es_ig else ""
+        folium.Marker(
+            [lat_pin, lon_pin],
+            popup=folium.Popup(popup_html(r), max_width=275),
+            tooltip=f"{prefijo_ig}{TIPO_LABEL[r.tipo]} · USD {r.precio_usd:,.0f} · 📏 {m2_badge}",
+            icon=folium.Icon(color=col, icon=icono, prefix="fa"),
+        ).add_to(destino)
 
-legend = f"""
+    legend = f"""
 <div style="position:fixed;bottom:25px;left:25px;z-index:9999;background:#fff;padding:8px 12px;
             border:1px solid #888;border-radius:6px;font-size:12px;">
 <span style="color:#2e9e4f;">●</span> Nueva (&lt;{NEW_DAYS} días)<br>
 <span style="color:#2a6fdb;">●</span> Activa (Web)<br>
 <span style="color:#d63a3a;">●</span> Antigua (&gt;{OLD_DAYS} días)<br>
 <span style="color:#9c27b0;">●</span> 📸 Publicación de Instagram</div>"""
-m.get_root().html.add_child(folium.Element(legend))
+    m.get_root().html.add_child(folium.Element(legend))
+    st_folium(m, use_container_width=True, height=620, returned_objects=[])
 
-st_folium(m, use_container_width=True, height=620, returned_objects=[])
+# ============================ TAB 2: ANÁLISIS ============================
+with tab_analisis:
+    vta = f_m2[f_m2.operacion == "Venta"]
+    ca, cb = st.columns(2)
 
-st.subheader("📋 Planilla de propiedades filtradas")
-tabla = f.drop(columns=["lat", "lon", "fuente_url", "m2"], errors="ignore").sort_values("dom").rename(columns={
-    "m2_totales": "M² Totales (Terreno/Prop.)", "m2_cubiertos": "M² Cubiertos",
-    "precio_usd": "Precio USD", "precio_m2_usd": "USD/m²", "dom": "DOM (días)",
-    "moneda_original": "Moneda orig.", "fuente": "Fuente", "direccion": "Dirección", "operacion": "Operación", "tipo": "Tipo",
-    "url": "Publicación", "url_imagenes": "Imágenes"})
-st.dataframe(
-    tabla, use_container_width=True, hide_index=True,
-    column_config={
-        "Publicación": st.column_config.LinkColumn("Publicación", display_text="Ver publicación"),
-        "Imágenes": st.column_config.LinkColumn("Imágenes", display_text="Ver imágenes"),
-        "Precio USD": st.column_config.NumberColumn(format="%d"),
-    },
-)
-st.download_button("⬇️ Descargar CSV", tabla.to_csv(index=False).encode("utf-8-sig"),
-                   "propiedades_tucuman.csv", "text/csv")
+    with ca:
+        st.subheader("💵 USD/m² mediano por zona (venta)")
+        z = vta.groupby("zona").precio_m2_usd.agg(["median", "count"]).reset_index()
+        z = z[z["count"] >= 3].sort_values("median", ascending=False).head(15)
+        if z.empty:
+            st.info("Se necesitan al menos 3 avisos por zona.")
+        else:
+            st.altair_chart(
+                alt.Chart(z).mark_bar(color="#2a6fdb").encode(
+                    y=alt.Y("zona:N", sort="-x", title=None),
+                    x=alt.X("median:Q", title="USD/m² mediano"),
+                    tooltip=[alt.Tooltip("zona:N", title="Zona"), alt.Tooltip("median:Q", format=",.0f", title="USD/m²"),
+                             alt.Tooltip("count:Q", title="Avisos")],
+                ).properties(height=380),
+                use_container_width=True,
+            )
 
+    with cb:
+        st.subheader("🏢 Propiedades por inmobiliaria (top 15)")
+        fu = f.fuente.replace("", "Sin fuente").value_counts().head(15).rename_axis("fuente").reset_index(name="avisos")
+        st.altair_chart(
+            alt.Chart(fu).mark_bar(color="#9c27b0").encode(
+                y=alt.Y("fuente:N", sort="-x", title=None), x=alt.X("avisos:Q", title="Avisos"),
+                tooltip=["fuente", "avisos"],
+            ).properties(height=380),
+            use_container_width=True,
+        )
+
+    cc, cd = st.columns(2)
+    with cc:
+        st.subheader("🏷️ USD/m² mediano por tipo y operación")
+        t = f_m2.groupby(["tipo", "operacion"]).precio_m2_usd.agg(["median", "count"]).reset_index()
+        st.altair_chart(
+            alt.Chart(t).mark_bar().encode(
+                x=alt.X("tipo:N", title=None), y=alt.Y("median:Q", title="USD/m² mediano"),
+                color=alt.Color("operacion:N", title="Operación"), xOffset="operacion:N",
+                tooltip=["tipo", "operacion", alt.Tooltip("median:Q", format=",.0f"), alt.Tooltip("count:Q", title="Avisos")],
+            ).properties(height=320),
+            use_container_width=True,
+        )
+    with cd:
+        st.subheader("⏱️ Días en el mercado (DOM)")
+        st.altair_chart(
+            alt.Chart(f).mark_bar(color="#2e9e4f").encode(
+                x=alt.X("dom:Q", bin=alt.Bin(maxbins=20), title="Días en el mercado"),
+                y=alt.Y("count():Q", title="Avisos"),
+            ).properties(height=320),
+            use_container_width=True,
+        )
+
+    st.subheader("🔵 Precio vs superficie (venta)")
+    if vta.empty:
+        st.info("Sin ventas con superficie informada para graficar.")
+    else:
+        sc = vta[vta.m2 < vta.m2.quantile(0.98)]
+        st.altair_chart(
+            alt.Chart(sc).mark_circle(size=60, opacity=0.6).encode(
+                x=alt.X("m2:Q", title="Superficie total (m²)"), y=alt.Y("precio_usd:Q", title="Precio (USD)"),
+                color=alt.Color("tipo:N", title="Tipo"),
+                tooltip=["tipo", "zona", "fuente", alt.Tooltip("m2:Q", title="m²"),
+                         alt.Tooltip("precio_usd:Q", format=",.0f", title="USD")],
+            ).properties(height=380).interactive(),
+            use_container_width=True,
+        )
+        st.caption("Se excluye el 2 % de superficies más grandes para que el gráfico sea legible.")
+
+# ============================ TAB 3: TUCUMÁN VS BUENOS AIRES ============================
+with tab_comp:
+    st.subheader("⚖️ ¿Cuánto más barato (o caro) es Tucumán que Buenos Aires?")
+    ref_path = os.path.join(os.path.dirname(__file__), "referencia_buenos_aires.csv")
+    if not os.path.exists(ref_path):
+        st.info("Todavía no se generó la referencia de Buenos Aires. Ejecutá `python referencia_buenos_aires.py`.")
+    else:
+        ref = pd.read_csv(ref_path)
+        fecha_ref = ref["fecha_muestra"].iloc[0] if "fecha_muestra" in ref.columns and len(ref) else "s/d"
+        tuc = df[(df.operacion == "Venta") & (df.m2 > 0) & (df.precio_m2_usd > 0) & (df.moneda_original == "USD")].copy()
+        tuc = tuc.assign(grupo="Tucumán")[["grupo", "tipo", "precio_m2_usd"]]
+        bsas = ref[["grupo", "tipo", "precio_m2_usd"]]
+        comp = pd.concat([tuc, bsas]).groupby(["tipo", "grupo"]).precio_m2_usd.agg(["median", "count"]).reset_index()
+        comp = comp[comp["count"] >= 3]
+
+        if comp.empty:
+            st.info("No hay suficientes avisos para comparar.")
+        else:
+            st.altair_chart(
+                alt.Chart(comp).mark_bar().encode(
+                    x=alt.X("tipo:N", title=None), y=alt.Y("median:Q", title="USD/m² mediano (venta)"),
+                    color=alt.Color("grupo:N", title="Zona", sort=["Tucumán", "CABA", "GBA", "Interior BA"]),
+                    xOffset="grupo:N",
+                    tooltip=["tipo", "grupo", alt.Tooltip("median:Q", format=",.0f", title="USD/m²"),
+                             alt.Tooltip("count:Q", title="Avisos")],
+                ).properties(height=380),
+                use_container_width=True,
+            )
+            piv = comp.pivot(index="tipo", columns="grupo", values="median")
+            if "Tucumán" in piv.columns and "CABA" in piv.columns:
+                piv["Tucumán vs CABA"] = ((piv["Tucumán"] / piv["CABA"] - 1) * 100).round(0)
+            st.dataframe(piv.round(0), use_container_width=True)
+            st.caption(
+                f"Referencia Buenos Aires: muestra del portal deinmobiliarios del {fecha_ref} "
+                f"({len(ref)} avisos de venta en USD). 'Tucumán vs CABA' = diferencia % del USD/m² mediano. "
+                "Sólo se comparan combinaciones con 3 o más avisos. Es una comparación orientativa, no un índice oficial."
+            )
+
+# ============================ TAB 4: PLANILLA ============================
+with tab_tabla:
+    st.subheader("📋 Planilla de propiedades filtradas")
+    tc1, tc2 = st.columns([2, 1])
+    buscar = tc1.text_input("🔎 Buscar por dirección, zona o inmobiliaria", placeholder="Ej: Yerba Buena, Remax, Laprida…")
+    orden = tc2.selectbox(
+        "Ordenar por",
+        ["Más recientes", "Precio: menor a mayor", "Precio: mayor a menor", "USD/m²: menor a mayor", "USD/m²: mayor a menor"],
+    )
+    ft = f
+    if buscar.strip():
+        q = buscar.strip().lower()
+        ft = f[(f.direccion.fillna("").astype(str).str.lower().str.contains(q, regex=False)
+                | f.zona.fillna("").astype(str).str.lower().str.contains(q, regex=False)
+                | f.fuente.fillna("").astype(str).str.lower().str.contains(q, regex=False))]
+    col_orden, asc = {
+        "Más recientes": ("dom", True), "Precio: menor a mayor": ("precio_usd", True),
+        "Precio: mayor a menor": ("precio_usd", False), "USD/m²: menor a mayor": ("precio_m2_usd", True),
+        "USD/m²: mayor a menor": ("precio_m2_usd", False),
+    }[orden]
+    ft = ft.sort_values(col_orden, ascending=asc)
+    st.caption(f"{len(ft):,} propiedades")
+
+    tabla = ft.drop(columns=["lat", "lon", "fuente_url", "m2", "id", "canal"], errors="ignore").rename(columns={
+        "m2_totales": "M² Totales (Terreno/Prop.)", "m2_cubiertos": "M² Cubiertos", "habitaciones": "Dorm.",
+        "precio_usd": "Precio USD", "precio_m2_usd": "USD/m²", "dom": "DOM (días)",
+        "moneda_original": "Moneda orig.", "fuente": "Fuente", "direccion": "Dirección", "operacion": "Operación",
+        "tipo": "Tipo", "url": "Publicación", "url_imagenes": "Foto"})
+    st.dataframe(
+        tabla, use_container_width=True, hide_index=True,
+        column_config={
+            "Foto": st.column_config.ImageColumn("Foto", width="small"),
+            "Publicación": st.column_config.LinkColumn("Publicación", display_text="Ver publicación"),
+            "Precio USD": st.column_config.NumberColumn(format="%d"),
+        },
+    )
+    st.download_button("⬇️ Descargar CSV", tabla.to_csv(index=False).encode("utf-8-sig"),
+                       "propiedades_tucuman.csv", "text/csv")

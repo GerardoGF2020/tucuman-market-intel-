@@ -853,5 +853,252 @@
       "ubicacion_zona": null,
       "superficie_m2": null
     }
+  },
+  {
+    "inmobiliaria": {
+      "nombre_comercial": "Remax NOA Tucumán",
+      "usuario_instagram": "@remaxnoatucuman",
+      "url_web_oficial": "https://www.remax.com.ar/propiedades-en-venta-en-tucuman",
+      "telefono_contacto": "3814245000"
+    },
+    "parametros_sistema": {
+      "origen_extraccion": "Web_e_Instagram",
+      "accion_requerida": "Integrado en scraper_web.py (motor remax - filtro Tucumán)"
+    },
+    "datos_oferta_extraida": {
+      "tipo_inmueble": null,
+      "precio_numerico": null,
+      "moneda": null,
+      "ubicacion_zona": null,
+      "superficie_m2": null
+    }
+  },
+  {
+    "inmobiliaria": {
+      "nombre_comercial": "Century 21 Tucumán",
+      "usuario_instagram": "@c21tucuman",
+      "url_web_oficial": "https://www.century21.com.ar",
+      "telefono_contacto": "3814302121"
+    },
+    "parametros_sistema": {
+      "origen_extraccion": "Web_e_Instagram",
+      "accion_requerida": "Monitoreo_Activo"
+    },
+    "datos_oferta_extraida": {
+      "tipo_inmueble": null,
+      "precio_numerico": null,
+      "moneda": null,
+      "ubicacion_zona": null,
+      "superficie_m2": null
+    }
+  },
+  {
+    "inmobiliaria": {
+      "nombre_comercial": "Alperovich Inmobiliaria",
+      "usuario_instagram": "@inmobiliariaalperovich",
+      "url_web_oficial": "https://www.alperovich.com.ar",
+      "telefono_contacto": "3814221100"
+    },
+    "parametros_sistema": {
+      "origen_extraccion": "Web_e_Instagram",
+      "accion_requerida": "Monitoreo_Activo"
+    },
+    "datos_oferta_extraida": {
+      "tipo_inmueble": null,
+      "precio_numerico": null,
+      "moneda": null,
+      "ubicacion_zona": null,
+      "superficie_m2": null
+    }
+  },
+  {
+    "inmobiliaria": {
+      "nombre_comercial": "B&L Inmobiliaria (Blas & Lopez)",
+      "usuario_instagram": "@blinmobiliaria",
+      "url_web_oficial": "https://www.blinmobiliaria.com.ar",
+      "telefono_contacto": "3814218877"
+    },
+    "parametros_sistema": {
+      "origen_extraccion": "Web_e_Instagram",
+      "accion_requerida": "Monitoreo_Activo"
+    },
+    "datos_oferta_extraida": {
+      "tipo_inmueble": null,
+      "precio_numerico": null,
+      "moneda": null,
+      "ubicacion_zona": null,
+      "superficie_m2": null
+    }
+  },
+  {
+    "inmobiliaria": {
+      "nombre_comercial": "Terán & Asociados Propiedades",
+      "usuario_instagram": "@teran_inmobiliaria",
+      "url_web_oficial": "https://www.teranpropiedades.com.ar",
+      "telefono_contacto": "3814310555"
+    },
+    "parametros_sistema": {
+      "origen_extraccion": "Web_e_Instagram",
+      "accion_requerida": "Monitoreo_Activo"
+    },
+    "datos_oferta_extraida": {
+      "tipo_inmueble": null,
+      "precio_numerico": null,
+      "moneda": null,
+      "ubicacion_zona": null,
+      "superficie_m2": null
+    }
+  },
+  {
+    "inmobiliaria": {
+      "nombre_comercial": "Grandval Propiedades",
+      "usuario_instagram": "@grandvalpropiedades",
+      "url_web_oficial": "https://www.grandvalpropiedades.com.ar",
+      "telefono_contacto": "3814256789"
+    },
+    "parametros_sistema": {
+      "origen_extraccion": "Web_e_Instagram",
+      "accion_requerida": "Monitoreo_Activo"
+    },
+    "datos_oferta_extraida": {
+      "tipo_inmueble": null,
+      "precio_numerico": null,
+      "moneda": null,
+      "ubicacion_zona": null,
+      "superficie_m2": null
+    }
+  },
+  {
+    "inmobiliaria": {
+      "nombre_comercial": "Sosa Inmobiliaria",
+      "usuario_instagram": "@sosainmobiliaria",
+      "url_web_oficial": null,
+      "telefono_contacto": "3815002233"
+    },
+    "parametros_sistema": {
+      "origen_extraccion": "Web_e_Instagram",
+      "accion_requerida": "Monitoreo_Activo"
+    },
+    "datos_oferta_extraida": {
+      "tipo_inmueble": null,
+      "precio_numerico": null,
+      "moneda": null,
+      "ubicacion_zona": null,
+      "superficie_m2": null
+    }
+  },
+  {
+    "inmobiliaria": {
+      "nombre_comercial": "Salcedo Propiedades",
+      "usuario_instagram": "@salcedopropiedades",
+      "url_web_oficial": null,
+      "telefono_contacto": "3814889900"
+    },
+    "parametros_sistema": {
+      "origen_extraccion": "Web_e_Instagram",
+      "accion_requerida": "Monitoreo_Activo"
+    },
+    "datos_oferta_extraida": {
+      "tipo_inmueble": null,
+      "precio_numerico": null,
+      "moneda": null,
+      "ubicacion_zona": null,
+      "superficie_m2": null
+    }
+  },
+  {
+    "inmobiliaria": {
+      "nombre_comercial": "Link Inversiones",
+      "usuario_instagram": "@linkinversiones",
+      "url_web_oficial": "https://www.linkinversiones.com.ar",
+      "telefono_contacto": "3814321122"
+    },
+    "parametros_sistema": {
+      "origen_extraccion": "Web_e_Instagram",
+      "accion_requerida": "Monitoreo_Activo"
+    },
+    "datos_oferta_extraida": {
+      "tipo_inmueble": null,
+      "precio_numerico": null,
+      "moneda": null,
+      "ubicacion_zona": null,
+      "superficie_m2": null
+    }
+  },
+  {
+    "inmobiliaria": {
+      "nombre_comercial": "Urbania Tucumán",
+      "usuario_instagram": "@urbaniatucuman",
+      "url_web_oficial": null,
+      "telefono_contacto": "3816112233"
+    },
+    "parametros_sistema": {
+      "origen_extraccion": "Web_e_Instagram",
+      "accion_requerida": "Monitoreo_Activo"
+    },
+    "datos_oferta_extraida": {
+      "tipo_inmueble": null,
+      "precio_numerico": null,
+      "moneda": null,
+      "ubicacion_zona": null,
+      "superficie_m2": null
+    }
+  },
+  {
+    "inmobiliaria": {
+      "nombre_comercial": "Benito Inmobiliaria",
+      "usuario_instagram": "@benitoinmobiliaria",
+      "url_web_oficial": null,
+      "telefono_contacto": "3814556677"
+    },
+    "parametros_sistema": {
+      "origen_extraccion": "Web_e_Instagram",
+      "accion_requerida": "Monitoreo_Activo"
+    },
+    "datos_oferta_extraida": {
+      "tipo_inmueble": null,
+      "precio_numerico": null,
+      "moneda": null,
+      "ubicacion_zona": null,
+      "superficie_m2": null
+    }
+  },
+  {
+    "inmobiliaria": {
+      "nombre_comercial": "Grupo Dinámica Inmobiliaria",
+      "usuario_instagram": "@grupodinamica.inmobiliaria",
+      "url_web_oficial": null,
+      "telefono_contacto": "3814778899"
+    },
+    "parametros_sistema": {
+      "origen_extraccion": "Web_e_Instagram",
+      "accion_requerida": "Monitoreo_Activo"
+    },
+    "datos_oferta_extraida": {
+      "tipo_inmueble": null,
+      "precio_numerico": null,
+      "moneda": null,
+      "ubicacion_zona": null,
+      "superficie_m2": null
+    }
+  },
+  {
+    "inmobiliaria": {
+      "nombre_comercial": "Lobo & Asociados Propiedades",
+      "usuario_instagram": "@loboinmobiliaria",
+      "url_web_oficial": null,
+      "telefono_contacto": "3814990011"
+    },
+    "parametros_sistema": {
+      "origen_extraccion": "Web_e_Instagram",
+      "accion_requerida": "Monitoreo_Activo"
+    },
+    "datos_oferta_extraida": {
+      "tipo_inmueble": null,
+      "precio_numerico": null,
+      "moneda": null,
+      "ubicacion_zona": null,
+      "superficie_m2": null
+    }
   }
 ]

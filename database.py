@@ -296,7 +296,7 @@ primero AS (
 )
 SELECT p.id, p.latitud AS lat, p.longitud AS lon, p.zona, p.direccion,
        p.tipo, p.operacion,
-       p.m2_totales, p.m2_cubiertos,
+       p.m2_totales, p.m2_cubiertos, p.habitaciones,
        COALESCE(p.m2_totales, p.m2_cubiertos) AS m2,
        u.precio_usd, u.moneda AS moneda_original, u.estado,
        pr.primera_fecha, u.fecha_registro AS ultima_fecha,
@@ -367,6 +367,7 @@ def load_data(solo_activas: bool = True) -> pd.DataFrame:
     df["m2"] = pd.to_numeric(df["m2"], errors="coerce")
     df["m2_totales"] = pd.to_numeric(df["m2_totales"], errors="coerce").fillna(df["m2"]).fillna(0).round().astype(int)
     df["m2_cubiertos"] = pd.to_numeric(df["m2_cubiertos"], errors="coerce").fillna(0).round().astype(int)
+    df["habitaciones"] = pd.to_numeric(df["habitaciones"], errors="coerce").fillna(0).round().astype(int)
     df["precio_m2_usd"] = (df["precio_usd"] / df["m2"]).round(1)
     df["m2"] = df["m2"].fillna(0).round().astype(int)
     df["precio_m2_usd"] = df["precio_m2_usd"].fillna(0.0)
@@ -380,7 +381,7 @@ def load_data(solo_activas: bool = True) -> pd.DataFrame:
     df["fuente_url"] = df["fuente_url"].fillna("")
 
     columnas = ["id", "lat", "lon", "zona", "direccion", "tipo", "operacion", "m2",
-                "m2_totales", "m2_cubiertos",
+                "m2_totales", "m2_cubiertos", "habitaciones",
                 "precio_usd", "precio_m2_usd", "moneda_original", "dom", "url", "url_imagenes",
                 "fuente", "fuente_url"]
     out_df = df[columnas]
